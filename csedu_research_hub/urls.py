@@ -21,5 +21,8 @@ from .settings import __version__
 urlpatterns = [
     re_path(r"^account", include("allauth.urls")),
     path("admin/", admin.site.urls),
-    path(f"api/{__version__}/auth/", include("rest_auth.registration.urls")),
+    path(f"api/{__version__}/auth/", include("rest_auth.urls")),
+    path(
+        f"api/{__version__}/auth/registration/", include("rest_auth.registration.urls")
+    ),
 ]
