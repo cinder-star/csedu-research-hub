@@ -18,7 +18,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 env_file = os.path.join(BASE_DIR, ".env")
 if os.path.isfile(env_file):
-    dotenv.read_dotenv(env_file)
+    dotenv.load_dotenv(env_file)
 
 
 # Quick-start development settings - unsuitable for production
@@ -38,6 +38,7 @@ ALLOWED_HOSTS = ["*"]
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
+    "django.contrib.sites",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
