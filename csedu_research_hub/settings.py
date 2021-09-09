@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     "django_filters",
     # Local apps
     "accounts",
+    "pdf",
 ]
 
 MIDDLEWARE = [

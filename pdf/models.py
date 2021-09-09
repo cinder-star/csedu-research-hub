@@ -1,6 +1,7 @@
 from django.db import models
 
 from accounts.models import User
+
 # Create your models here.
 class PdfFile(models.Model):
     pdf_name = models.CharField(max_length=100)
