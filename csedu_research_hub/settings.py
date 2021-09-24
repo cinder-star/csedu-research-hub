@@ -55,7 +55,9 @@ INSTALLED_APPS = [
     "django_seed",
     "django_filters",
     # Local apps
+    "core",
     "accounts",
+    "pdf",
 ]
 
 MIDDLEWARE = [
@@ -146,4 +148,5 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 __version__ = "v1"
