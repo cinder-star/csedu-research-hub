@@ -25,7 +25,7 @@ class FileManager:
         instance_file_name = now.strftime("%Y-%m-%d_%H-%M-%S") + f".{mimetype}"
         filename = os.path.join(MEDIA_ROOT, folder_path, instance_file_name)
         self.storage_system.save(filename, file)
-        return instance_file_name
+        return filename
 
     def delete_file(self, path: str):
         self.storage_system.delete(path)
