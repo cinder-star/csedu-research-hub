@@ -25,4 +25,5 @@ urlpatterns = [
     path(
         f"api/{__version__}/auth/registration/", include("rest_auth.registration.urls")
     ),
+    path(f"api/{__version__}/pdf/", include("pdf.urls")),
 ]

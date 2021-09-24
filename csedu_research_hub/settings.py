@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "django_seed",
     "django_filters",
     # Local apps
+    "core",
     "accounts",
     "pdf",
 ]
