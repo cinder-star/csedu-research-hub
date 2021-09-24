@@ -15,8 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path, include
+from django.views.static import serve
+from django.conf.urls import url
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
-from .settings import __version__
+
+from .settings import __version__, MEDIA_ROOT
 
 urlpatterns = [
     re_path(r"^account", include("allauth.urls")),
@@ -27,3 +31,11 @@ urlpatterns = [
     ),
     path(f"api/{__version__}/pdf/", include("pdf.urls")),
 ]
+
+urlpatterns += [
+    url(
+        r"^media/(?P<path>.*)$",
+        serve,
+        {"document_root": MEDIA_ROOT, "show_indexes": True},
+    )
+] + staticfiles_urlpatterns()
