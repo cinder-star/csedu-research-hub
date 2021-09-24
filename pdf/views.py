@@ -9,7 +9,7 @@ from rest_framework.generics import ListAPIView, RetrieveAPIView
 from core.classes import FileManager
 from csedu_research_hub.settings import MEDIA_ROOT
 from .utils import extract_zip, make_pdf
-from .models import PdfFile
+from .models import PdfFile, ViewHistory
 from .serializers import PdfSerializer, PdfDetailSerializer
 
 # Create your views here.
@@ -43,10 +43,31 @@ class PdfFileList(ListAPIView):
 
 
 class PdfFileDetail(RetrieveAPIView):
-    queryset = PdfFile.objects.all()
     serializer_class = PdfDetailSerializer
+
+    def get_queryset(self):
+        ViewHistory.objects.create(
+            user=self.request.user, pdf_file_id=self.kwargs["pk"]
+        )
+        return PdfFile.objects.all()
+
+
+class ViewHistoryList(ListAPIView):
+    serializer_class = PdfSerializer
+
+    def get_queryset(self):
+        view_id_list = (
+            ViewHistory.objects.filter(user=self.request.user)
+            .order_by("-viewed_at")
+            .values_list("pdf_file_id", flat=True)
+        )
+        return PdfFile.objects.filter(id__in=view_id_list)
 
 
 def PdfView(request, pdf_name):
-    file = open(os.path.join(MEDIA_ROOT, "pdf", pdf_name), "rb")
-    return FileResponse(file)
+    try:
+        file = open(os.path.join(MEDIA_ROOT, "pdf", pdf_name), "rb")
+    except FileNotFoundError as e:
+        return Response({"status": "Error", "message": "File not found"})
+    else:
+        return FileResponse(file)
