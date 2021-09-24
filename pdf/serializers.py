@@ -28,7 +28,7 @@ class PdfDetailSerializer(ModelSerializer):
         return pdf.user.username
 
     def get_file(self, pdf: PdfFile):
-        return "/media/pdf/"+pdf.pdf_path.split("/")[-1]
+        return "/api/v1/pdf/media/"+pdf.pdf_path.split("/")[-1]
 
     class Meta:
         fields = [
