@@ -2,10 +2,12 @@ from django.shortcuts import render
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.generics import ListAPIView, RetrieveAPIView
 
 from core.classes import FileManager
 from .utils import extract_zip, make_pdf
 from .models import PdfFile
+from .serializers import PdfSerializer, PdfDetailSerializer
 
 # Create your views here.
 
@@ -30,3 +32,13 @@ class UploadZip(APIView):
             pdf_path=pdf_path,
         )
         return Response({"status": "Ok", "message": "File uploaded successfully"})
+
+
+class PdfFileList(ListAPIView):
+    queryset = PdfFile.objects.all().order_by("-pdf_uploaded_at")
+    serializer_class = PdfSerializer
+
+
+class PdfFileDetail(RetrieveAPIView):
+    queryset = PdfFile.objects.all()
+    serializer_class = PdfDetailSerializer
