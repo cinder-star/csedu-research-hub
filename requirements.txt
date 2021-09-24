@@ -1,5 +1,4 @@
 black==19.10b0
-cffi==1.14.0
 click==7.1.1
 coreschema==0.0.4
 cryptography==3.3.2
