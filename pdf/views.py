@@ -48,5 +48,9 @@ class PdfFileDetail(RetrieveAPIView):
 
 
 def PdfView(request, pdf_name):
-    file = open(os.path.join(MEDIA_ROOT, "pdf", pdf_name), "rb")
-    return FileResponse(file)
+    try:
+        file = open(os.path.join(MEDIA_ROOT, "pdf", pdf_name), "rb")
+    except FileNotFoundError as e:
+        return Response({"status": "Error", "message": "File not found"})
+    else:
+        return FileResponse(file)
